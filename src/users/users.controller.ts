@@ -5,10 +5,14 @@ import {
   HttpCode,
   HttpStatus,
   Get,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SignInDto } from './dto/read-user.dto';
+import { JwtGuard } from './guard';
+import { GetUser } from './decorator';
+import { User } from '@prisma/client';
 
 @Controller('users')
 export class UsersController {
@@ -27,8 +31,9 @@ export class UsersController {
     return this.usersService.signIn(signInDto);
   }
 
+  @UseGuards(JwtGuard)
   @Get('me')
-  getInfo() {
-    return 'info';
+  getInfo(@GetUser() user: User) {
+    return user;
   }
 }
