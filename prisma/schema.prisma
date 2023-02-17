@@ -23,4 +23,6 @@ model User {
   job String?
   company String?
   phone String?
+
+  //addOndelet: cascade for delete a parent model
 }
