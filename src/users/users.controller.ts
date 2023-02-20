@@ -12,7 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { SignInDto } from './dto/read-user.dto';
 import { JwtGuard } from './guard';
 import { GetUser } from './decorator';
-import { User } from '@prisma/client';
+
 
 @Controller('users')
 export class UsersController {
@@ -33,7 +33,7 @@ export class UsersController {
 
   @UseGuards(JwtGuard)
   @Get('me')
-  getInfo(@GetUser() user: User) {
+  getInfo(@GetUser() user: CreateUserDto) {
     return user;
   }
 }
